@@ -1,0 +1,13 @@
+.runtime/
+.data/
+backend/.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.DS_Store
+platform/backend/.venv/
+platform/backend/data/
+platform/node_modules/
+platform/dist/
+*.tsbuildinfo

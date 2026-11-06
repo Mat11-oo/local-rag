@@ -1,0 +1,26 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+
+# Python
+backend/.venv/
+backend/.pytest_cache/
+backend/.coverage
+backend/htmlcov/
+backend/**/__pycache__/
+backend/**/*.py[cod]
+
+# Runtime data and secrets
+.env
+backend/.env
+backend/data/
+backend/*.db
+backend/*.sqlite*
+
+
+# Tooling
+.pytest_cache/
+.ccgui/
+prototype/node_modules/
+.gstack/

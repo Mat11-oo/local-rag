@@ -1,0 +1,103 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: rag_hub
+      POSTGRES_USER: rag
+      POSTGRES_PASSWORD: rag
+    ports:
+      - "56432:5432"
+    volumes:
+      - rag_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rag -d rag_hub"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "57379:6379"
+    volumes:
+      - rag_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  minio:
+    # RustFS is S3-compatible and is used for local development because the
+    # MinIO registry is not reachable from every corporate Docker mirror.
+    image: rustfs/rustfs@sha256:ed9210d6411d77ffceb70d94b964a3cb7d225983368bc25bebe01e995293dcc2
+    command: rustfs
+    environment:
+      RUSTFS_ACCESS_KEY: rag-minio
+      RUSTFS_SECRET_KEY: change-this-minio-secret
+      RUSTFS_VOLUMES: /data
+      RUSTFS_ADDRESS: 0.0.0.0:9000
+      RUSTFS_CONSOLE_ADDRESS: 0.0.0.0:9001
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_UNSAFE_BYPASS_DISK_CHECK: "true"
+    ports:
+      - "59000:9000"
+      - "59001:9001"
+    volumes:
+      - rag_minio_data:/data
+
+  api:
+    build:
+      context: ./backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      APP_DATABASE_URL: postgresql+asyncpg://rag:rag@postgres:5432/rag_hub
+      APP_REDIS_URL: redis://redis:6379/0
+      APP_STORAGE_BACKEND: s3
+      APP_S3_ENDPOINT_URL: http://minio:9000
+      APP_TASK_MODE: celery
+      APP_AUTO_CREATE_DB: "true"
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    volumes:
+      - ./backend/app:/app/app
+
+  worker:
+    build:
+      context: ./backend
+    command: uv run --no-sync celery -A app.worker.celery_app worker --loglevel=INFO --concurrency=2
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      APP_DATABASE_URL: postgresql+asyncpg://rag:rag@postgres:5432/rag_hub
+      APP_REDIS_URL: redis://redis:6379/0
+      APP_STORAGE_BACKEND: s3
+      APP_S3_ENDPOINT_URL: http://minio:9000
+      APP_TASK_MODE: celery
+      APP_AUTO_CREATE_DB: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    volumes:
+      - ./backend/app:/app/app
+
+volumes:
+  rag_postgres_data:
+  rag_redis_data:
+  rag_minio_data:
+

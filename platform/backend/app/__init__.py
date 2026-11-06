@@ -1,0 +1,2 @@
+"""Enterprise knowledge hub backend."""
+

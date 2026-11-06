@@ -1,0 +1,11 @@
+export type JsonRecord = Record<string, unknown>;
+export interface Integration {id:string;name:string;description?:string;enabled?:boolean;status?:string;lastError?:string;hasSecret?:boolean;tools?:McpTool[];resources?:{uri:string;name:string}[];prompts?:{name:string;description?:string}[];allowedTools?:string[];autoApproveTools?:string[];[key:string]:unknown;}
+export interface McpTool {name:string;description?:string;inputSchema?:JsonRecord;}
+export interface ToolSpec extends McpTool {id:string;kind:string;requiresApproval?:boolean;}
+export interface IntegrationState {mcpConnections:Integration[];httpTools:Integration[];skills:Integration[];runnerConnections:Integration[];priceRules:Integration[];alertRules:Integration[];captureSettings:Integration[];catalog:ToolSpec[];}
+export interface RuntimeRecord {id:string;name:string;kind:string;status:string;source:string;input:unknown;output?:unknown;error?:string;createdAt:string;startedAt?:string;endedAt?:string;duration?:number;capture?:string;versionId?:string;appId?:string;pending?:{key:string;reason?:string;toolId?:string;arguments?:unknown};remoteCancel?:string;outcome?:string;}
+export interface RuntimeSpan {id:string;parentId?:string;name:string;kind:string;input?:unknown;output?:unknown;status:string;createdAt:string;duration?:number;error?:string;attributes?:JsonRecord;}
+export interface UsageEntry {id:string;runId:string;spanId?:string;modelId:string;provider?:string;inputTokens:number|null;outputTokens:number|null;cost:number|null;currency?:string;costStatus:string;source:string;createdAt:string;rawUsage?:unknown;priceSnapshot?:unknown;}
+export interface RunDetailData {run:RuntimeRecord;spans:RuntimeSpan[];usage:UsageEntry[];events:{id:string;type:string;occurredAt:string;payload?:unknown}[];}
+export const stateLabels:Record<string,string>={queued:'排队中',running:'运行中',waiting_approval:'等待确认',paused:'已暂停',succeeded:'成功',partially_completed:'部分完成',failed:'失败',cancelled:'已取消',skipped:'已跳过',unknown:'未知',connected:'已连接',unverified:'待检测',configured:'已配置'};
+export const stateColor=(status:string)=>['succeeded','connected'].includes(status)?'green':status==='failed'?'red':['running','queued'].includes(status)?'blue':['waiting_approval','paused'].includes(status)?'orange':'default';
