@@ -31,5 +31,3 @@ python3 scripts/start-local.py
 | `frontend/`、`backend/` | 旧版源码 |
 
 本地运行生成的资料、模型配置及数据库保存在运行机器上。已有旧版资料时，可使用 `python3 scripts/migrate-local.py` 迁移支持的内容。
-
-当前平台基于 [zhishu-rag-platform 的固定提交](https://github.com/chusimin/zhishu-rag-platform/tree/b2f28438bb8c955e3ffda6f84a1c291e6a620644) 适配。
