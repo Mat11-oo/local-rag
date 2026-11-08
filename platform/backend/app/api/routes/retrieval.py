@@ -16,8 +16,13 @@ from ...tenancy import current_workspace_id
 router = APIRouter(dependencies=[Depends(require_roles("admin", "manager"))])
 
 
-@router.post("/{knowledge_base_id}/retrieval-test", response_model=RetrievalResponse)
-async def test_retrieval(
+@router.post("/{knowledge_base_id}/retrieval-test", response_model=RetrievalResponse, name="test_retrieval")
+@router.post(
+    "/{knowledge_base_id}/retrieve",
+    response_model=RetrievalResponse,
+    summary="Retrieve source passages for an external application",
+)
+async def retrieve(
     knowledge_base_id: str,
     payload: RetrievalRequest,
     session: AsyncSession = Depends(get_session),
@@ -34,6 +39,7 @@ async def test_retrieval(
             rerank_top_n=payload.rerank_top_n,
             score_threshold=payload.score_threshold,
             mode=payload.mode,
+            use_rerank=payload.use_rerank,
         )
     except (ProviderError, ValueError) as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc

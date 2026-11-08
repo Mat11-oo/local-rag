@@ -47,6 +47,8 @@ def _required_scope(request: Request) -> str | None:
     if "/auth/" in path:
         return None
     if "/knowledge-bases" in path:
+        if method == "POST" and path.endswith("/retrieve"):
+            return "knowledge:read"
         return "knowledge:read" if method == "GET" else "knowledge:write"
     if "/models" in path or "/model-options" in path:
         return "models:read" if method == "GET" else "models:write"

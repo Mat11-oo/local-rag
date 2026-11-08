@@ -278,13 +278,14 @@ class ChunkUpdate(BaseModel):
 class RetrievalRequest(BaseModel):
     query: str = Field(min_length=1, max_length=4000)
     mode: Literal["semantic", "fulltext", "hybrid"] = "semantic"
+    use_rerank: bool = Field(default=True, description="Use the knowledge base's configured reranker, if any")
     top_k: int = Field(default=8, ge=1, le=50)
     rerank_top_n: int = Field(default=3, ge=1, le=20)
     score_threshold: float = Field(default=0.0, ge=-1.0, le=1.0)
 
     @model_validator(mode="after")
     def validate_retrieval_limits(self) -> "RetrievalRequest":
-        if self.rerank_top_n > self.top_k:
+        if self.use_rerank and self.rerank_top_n > self.top_k:
             raise ValueError("rerank_top_n cannot exceed top_k")
         return self
 

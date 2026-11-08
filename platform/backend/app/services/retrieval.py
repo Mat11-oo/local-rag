@@ -169,6 +169,7 @@ async def retrieve_knowledge_base(
     rerank_top_n: int,
     score_threshold: float,
     mode: str = "semantic",
+    use_rerank: bool = True,
 ) -> RetrievalRun:
     started = monotonic()
     if mode not in {"semantic", "fulltext", "hybrid"}:
@@ -214,7 +215,7 @@ async def retrieve_knowledge_base(
     rerank_applied = False
     simulated = bool(embedding_gateway and embedding_gateway.is_simulated)
 
-    if candidates and knowledge_base.rerank_model_id:
+    if use_rerank and candidates and knowledge_base.rerank_model_id:
         rerank_model = await session.get(ModelConfig, knowledge_base.rerank_model_id)
         if rerank_model is None or not rerank_model.is_enabled:
             raise ValueError("Configured rerank model is missing or disabled")

@@ -58,7 +58,7 @@ export function KnowledgeDetailPage() {
         <Routes>
           <Route index element={<FilesView kb={kb} onChanged={reload} />} />
           <Route path="files/:fileId" element={<ChunksView kb={kb} />} />
-          <Route path="search" element={<SearchView kb={kb} usedBy={usedBy} />} />
+          <Route path="search" element={<SearchView key={kb.id} kb={kb} usedBy={usedBy} />} />
           <Route path="settings" element={<SettingsView kb={kb} onSaved={setKb} usedBy={usedBy} />} />
         </Routes>
       </section>
@@ -362,6 +362,8 @@ function SearchView({ kb, usedBy }: { kb: ApiKnowledgeBase; usedBy: FDEApp[] }) 
   const [rerankN, setRerankN] = useState(3);
   const [threshold, setThreshold] = useState(0);
   const [result, setResult] = useState<ApiRetrievalResponse | null>(null);
+  const [resultMode, setResultMode] = useState<Mode>(mode);
+  const [evidenceLookup, setEvidenceLookup] = useState(false);
   const [busy, setBusy] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
   const [applying, setApplying] = useState(false);
@@ -385,11 +387,23 @@ function SearchView({ kb, usedBy }: { kb: ApiKnowledgeBase; usedBy: FDEApp[] }) 
     }
   };
 
-  const run = async (text = query) => {
-    if (!text.trim()) return;
+  const run = async (text = query, localEvidence = false) => {
+    if (busy || !text.trim() || !(kb.total_chunk_count ?? 0)) return;
+    const requestMode = localEvidence ? 'fulltext' : mode;
+    const endpoint = localEvidence ? 'retrieve' : 'retrieval-test';
+    const parameters = localEvidence
+      ? { top_k: 3, score_threshold: 0.25, use_rerank: false }
+      : { top_k: topK, rerank_top_n: Math.min(rerankN, topK), score_threshold: threshold };
     setBusy(true);
+    setResult(null);
     try {
-      setResult(await apiFetch<ApiRetrievalResponse>(`/knowledge-bases/${kb.id}/retrieval-test`, { method: 'POST', body: JSON.stringify({ query: text.trim(), mode, top_k: topK, rerank_top_n: Math.min(rerankN, topK), score_threshold: threshold }) }));
+      const response = await apiFetch<ApiRetrievalResponse>(`/knowledge-bases/${kb.id}/${endpoint}`, {
+        method: 'POST',
+        body: JSON.stringify({ query: text.trim(), mode: requestMode, ...parameters }),
+      });
+      setResult(response);
+      setResultMode(requestMode);
+      setEvidenceLookup(localEvidence);
       setHistory((items) => [text.trim(), ...items.filter((item) => item !== text.trim())].slice(0, 6));
     } catch (caught) {
       toast(errorMessage(caught), 'error');
@@ -400,10 +414,10 @@ function SearchView({ kb, usedBy }: { kb: ApiKnowledgeBase; usedBy: FDEApp[] }) 
 
   // 中文问题通常没有空格：按标点切词，再把较长的中文片段拆成双字词，用于命中高亮
   const words = useMemo(() => {
-    const terms = query.trim().split(/[\s,，。？?！!、；;：:]+/).filter((item) => item.length > 1);
+    const terms = (result?.query ?? '').trim().split(/[\s,，。？?！!、；;：:]+/).filter((item) => item.length > 1);
     const grams = terms.flatMap((term) => (/^[\u4e00-\u9fff]{3,}$/.test(term) ? Array.from({ length: term.length - 1 }, (_, index) => term.slice(index, index + 2)) : [term]));
     return Array.from(new Set(grams)).sort((a, b) => b.length - a.length);
-  }, [query]);
+  }, [result]);
   const highlight = (text: string) => {
     if (!words.length) return text;
     const re = new RegExp(`(${words.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g');
@@ -428,6 +442,8 @@ function SearchView({ kb, usedBy }: { kb: ApiKnowledgeBase; usedBy: FDEApp[] }) 
           <Field label="重排后保留" hint={kb.rerank_model_id ? '已配置重排模型' : '未配置重排模型'}><Slider label="重排后保留" value={rerankN} min={1} max={20} onChange={setRerankN} /></Field>
           <Field label="最低相关度"><Slider label="最低相关度" value={threshold} min={0} max={1} step={0.05} onChange={setThreshold} /></Field>
           <button className="btn primary" style={{ width: '100%' }} disabled={busy || !query.trim() || !(kb.total_chunk_count ?? 0)} onClick={() => void run()}>{busy ? <Spinner /> : <Search size={15} />}测试</button>
+          <button className="btn" style={{ width: '100%', marginTop: 8 }} disabled={busy || !query.trim() || !(kb.total_chunk_count ?? 0)} onClick={() => void run(query, true)}>查制度依据</button>
+          <p className="faint" style={{ marginTop: 6 }}>本地全文检索，最多显示 3 条达到 0.25 匹配分的原文。</p>
           <button className="btn ghost" style={{ width: '100%', marginTop: 8 }} disabled={!usedBy.length} title={usedBy.length ? undefined : '还没有应用引用本库'} onClick={() => { setTargets(usedBy.map((app) => app.id)); setApplying(true); }}>把这组参数用到应用</button>
         </div>
         {history.length ? <><div className="section-title" style={{ fontSize: 13 }}>本次测试历史</div>{history.map((item) => <button key={item} className="sub-link" onClick={() => { setQuery(item); void run(item); }}><Search size={13} className="muted" />{item}</button>)}</> : null}
@@ -435,11 +451,12 @@ function SearchView({ kb, usedBy }: { kb: ApiKnowledgeBase; usedBy: FDEApp[] }) 
       <div className="grow" style={{ minWidth: 320 }}>
         {result ? <>
           <div className="row wrap" style={{ marginBottom: 12, marginTop: 4 }}>
-            <strong>召回结果</strong><Tag>{mode === 'semantic' ? '语义检索' : mode === 'fulltext' ? '全文检索' : '混合检索'}</Tag>
+            <strong>{evidenceLookup ? '候选制度依据' : '召回结果'}</strong><Tag>{resultMode === 'semantic' ? '语义检索' : resultMode === 'fulltext' ? '全文检索' : '混合检索'}</Tag>
             <span className="faint">召回 {result.recalled_count} 条 · 返回 {result.returned_count} 条 · 耗时 {result.total_duration_ms}ms{result.rerank_applied ? ' · 已重排' : ''}</span>
             {result.simulated ? <Tag tone="orange">测试替身</Tag> : null}
           </div>
-          {!result.results.length ? <Empty title="没有达到阈值的结果" desc="可以降低最低相关度，或换用混合检索。" /> : null}
+          {evidenceLookup && result.results.length > 0 ? <p className="muted">请结合实际情况和制度原文完成人工审核。</p> : null}
+          {!result.results.length ? <Empty title="没有达到阈值的结果" desc={evidenceLookup ? '请核对所选知识库，或人工核查。' : '可以降低最低相关度，或换用混合检索。'} /> : null}
           <div className="col" style={{ gap: 12 }}>
             {result.results.map((item, index) => (
               <div key={item.chunk_id} className="chunk-card">
