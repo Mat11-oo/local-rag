@@ -66,5 +66,3 @@ API Token 受角色、权限范围和工作空间约束。语义检索、重排�
 | [platform/src](platform/src) | 工作台和知识库界面 |
 | [platform/backend](platform/backend) | API、检索服务、数据库迁移和测试 |
 | [scripts](scripts) | 开发环境安装与启动工具 |
-
-平台基于 [知枢 RAG 平台](https://github.com/chusimin/zhishu-rag-platform/tree/b2f28438bb8c955e3ffda6f84a1c291e6a620644) 的既有实现，增加共享检索接口和制度核查入口。
