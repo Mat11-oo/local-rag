@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>知序 · Local RAG — 本地优先的 AI 应用中台</title>
+<meta name="description" content="知序 Local RAG：把企业文档变成可检索、可评测、可发布、可追溯的 AI 应用。支持九种切块、三种检索、发布门禁与全链路 Trace。" />
+<meta property="og:title" content="知序 · Local RAG" />
+<meta property="og:description" content="本地优先的 RAG 与应用中台：知识库、应用编排、评测集、发布门禁、可观测。" />
+<meta property="og:image" content="assets/knowledge-desktop.jpg" />
+<meta name="theme-color" content="#5a4bdf" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235a4bdf'/%3E%3Cpath d='M9 11h14M9 16h10M9 21h7' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h9M5 17h6" /></svg>
+      </span>
+      <span>知序 <em>Local RAG</em></span>
+    </a>
+    <nav class="nav-links" aria-label="页面导航">
+      <a href="#features">功能</a>
+      <a href="#screens">界面</a>
+      <a href="#architecture">架构</a>
+      <a href="#start">快速开始</a>
+      <a class="ghost" href="__REPO_URL__" target="_blank" rel="noreferrer">
+        <svg viewBox="0 0 24 24" class="ico"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.05 10.05 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span> 本地优先 · 可追溯 · 可评测</p>
+        <h1>把企业文档，变成<br /><span class="grad">敢上线</span>的 AI 能力</h1>
+        <p class="lede">知序 Local RAG 是一个 AI 应用中台：导入资料、切块与检索、编排应用、评测把关、发布版本、追踪每一次回答。默认在本机运行，云端处理由你逐项开启。</p>
+        <div class="cta">
+          <a class="btn primary" href="#start">了解如何运行 <span aria-hidden="true">→</span></a>
+          <a class="btn" href="__REPO_URL__" target="_blank" rel="noreferrer">查看源码</a>
+        </div>
+        <ul class="badges" aria-label="技术栈">
+          <li>FastAPI</li><li>React 19</li><li>SQLite</li><li>TypeScript</li><li>OpenAPI</li>
+        </ul>
+      </div>
+      <div class="hero-shot">
+        <figure class="frame">
+          <div class="chrome"><i></i><i></i><i></i><span>知识库 · 工作台</span></div>
+          <img src="assets/knowledge-desktop.jpg" width="1434" height="996" alt="知序知识库工作台，展示知识库卡片与统计" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap stats-grid">
+      <div><strong>9</strong><span>种切块方式</span></div>
+      <div><strong>3</strong><span>种检索模式</span></div>
+      <div><strong>6</strong><span>步发布闭环</span></div>
+      <div><strong>本地</strong><span>数据与密钥</span></div>
+    </div>
+  </section>
+
+  <section id="features" class="section">
+    <div class="wrap">
+      <p class="kicker">FEATURES</p>
+      <h2>从资料到上线，一条完整链路</h2>
+      <p class="section-lede">不是只会聊天的套壳，而是把「知识—应用—评测—发布—观测」串成可复用的中台能力。</p>
+
+      <div class="grid">
+        <article class="card">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v16H6.5A2.5 2.5 0 0 0 4 21.5V5.5Z"/><path d="M4 5.5v16M8 7h7M8 11h5"/></svg></span>
+          <h3>知识库与九种切块</h3>
+          <p>文件、网页、文本统一导入；按格式推荐切块方式，逐文件预览并调整。支持标题、固定长度、分隔符、按页、表格、QA、父子块与语义等九种策略。</p>
+        </article>
+
+        <article class="card">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/><path d="m3 12 9 4.5 9-4.5M3 16.5 12 21l9-4.5"/></svg></span>
+          <h3>全文 / 语义 / 混合检索</h3>
+          <p>全文检索无需模型即可用；配置 Embedding 后开启语义与混合检索。支持重排、阈值、初召回与重排后保留数量，并可一键写入引用本库的应用。</p>
+        </article>
+
+        <article class="card">
+          <span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M12 7V4M8 12h.01M16 12h.01M9 16h6"/></svg></span>
+          <h3>应用、Agent 与 Chat Flow</h3>
+          <p>从模板、空白或 AI 辅助创建简易应用与 Agent；可视化编排开始、检索、模型、条件分支、工具调用与输出节点，草稿自动保存并可独立调试。</p>
+        </article>
+
+        <article class="card">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M9 11.5 11.5 14 15.5 9.5"/><circle cx="12" cy="12" r="9"/></svg></span>
+          <h3>评测集与发布门禁</h3>
+          <p>手工新增、AI 设计或从 Trace 回流 Good / Bad Case；设置必须包含、禁止出现、引用与期望输出等标准。门禁不通过，不允许发布。</p>
+        </article>
+
+        <article class="card">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 3.5-4 3 2.5L20 7"/></svg></span>
+          <h3>全链路可观测</h3>
+          <p>检索、模型、工具与护栏 Trace，耗时、Token、费用和反馈一屏可见；把问题一键回流为 Case，修复后回归、再发布。</p>
+        </article>
+
+        <article class="card">
+          <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 2.9 8.4 7 9.5 4.1-1.1 7-5.1 7-9.5V6l-7-3Z"/><path d="m9 11.5 2 2 4-4"/></svg></span>
+          <h3>权限、Token 与 API</h3>
+          <p>管理员 / 知识管理员 / 业务使用者分权；API Token 按 scope 授权。知识库检索可被外部 AI Work 应用直接调用，返回片段、出处与页码。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens" class="section alt">
+    <div class="wrap">
+      <p class="kicker">INTERFACE</p>
+      <h2>真实界面，而不是概念图</h2>
+      <p class="section-lede">沿用紫色工作台视觉，支持浅色、深色与跟随系统；已完成桌面、平板与手机宽度验收。</p>
+
+      <div class="gallery">
+        <figure class="shot wide">
+          <img src="assets/chat-desktop.jpg" width="1434" height="996" alt="在线对话界面，展示企业知识助手与关联知识库" />
+          <figcaption><strong>在线对话</strong><span>多知识库问答、引用与角色切换</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/image-preview.jpg" width="1440" height="1000" alt="文档预览与切块详情" />
+          <figcaption><strong>文档与切块预览</strong><span>导入后逐段核对，再决定是否可检索</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/zhishu-workbench.jpg" width="1421" height="694" alt="知序应用工作台，展示应用卡片与工作空间统计" />
+          <figcaption><strong>应用工作台</strong><span>最近使用、空间沉淀与快捷入口</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="architecture" class="section">
+    <div class="wrap">
+      <p class="kicker">ARCHITECTURE</p>
+      <h2>前后端分离，本机即可跑通</h2>
+      <p class="section-lede">默认单机部署：React 前端、FastAPI 后端、SQLite 与本地文件；需要规模化时保留 PostgreSQL + pgvector / Redis / S3 的 Docker 配置。</p>
+
+      <div class="arch">
+        <div class="layer">
+          <span class="tag">前端</span>
+          <div class="layer-body">
+            <h3>React 19 + Vite</h3>
+            <p>知识库、导入向导、应用编排、评测集、看板与设置。TypeScript 严格构建，接口统一走 <code>/api</code>。</p>
+            <div class="chips"><span>TypeScript</span><span>Ant Design</span><span>Vite</span></div>
+          </div>
+        </div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div class="layer">
+          <span class="tag">后端</span>
+          <div class="layer-body">
+            <h3>FastAPI + 任务运行时</h3>
+            <p>检索、切块、解析、评测、发布版本、Trace 与权限校验；OpenAPI 文档随服务提供。向量化、重排、OCR 受云端处理开关约束。</p>
+            <div class="chips"><span>Python 3.11–3.13</span><span>OpenAPI</span><span>SQLite</span><span>可选 PostgreSQL</span></div>
+          </div>
+        </div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div class="layer">
+          <span class="tag">数据</span>
+          <div class="layer-body">
+            <h3>本机优先的存储</h3>
+            <p>知识库、分块、应用版本与评测记录落在本机数据库；上传文件保存在本地目录。密钥独立加密，可随时关闭云端处理。</p>
+            <div class="chips"><span>.data/</span><span>本地文件</span><span>独立密钥</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <p class="kicker">WORKFLOW</p>
+      <h2>六步闭环，每一步都有证据</h2>
+      <ol class="flow">
+        <li><span>01</span><strong>导入</strong><p>文件、网页或文本进入知识库，解析结果可逐文件核对。</p></li>
+        <li><span>02</span><strong>切块</strong><p>按格式选择策略与参数，确认哪些分块可被检索。</p></li>
+        <li><span>03</span><strong>编排</strong><p>创建应用 / Agent / Chat Flow，绑定知识库与工具。</p></li>
+        <li><span>04</span><strong>评测</strong><p>用明确判定标准跑 Case，Good / Bad 有据可查。</p></li>
+        <li><span>05</span><strong>发布</strong><p>门禁全部通过才生成不可变版本，可下线与回滚。</p></li>
+        <li><span>06</span><strong>观测</strong><p>Trace、耗时、Token 与费用回流问题，再回归。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="start" class="section">
+    <div class="wrap start-grid">
+      <div>
+        <p class="kicker">QUICK START</p>
+        <h2>在本机启动完整应用</h2>
+        <p class="section-lede">需要 Python 3.11–3.13、Node.js 22.12+ 与 pnpm。首次准备环境后，双击启动脚本或执行命令，打开 <code>127.0.0.1:4173</code>。</p>
+        <p class="hint">GitHub Pages 只能托管静态页面；本页是项目展示，真实问答、检索与发布请在本机运行。</p>
+        <div class="doclinks">
+          <a href="__REPO_URL__#readme" target="_blank" rel="noreferrer">完整 README <span aria-hidden="true">↗</span></a>
+          <a href="__REPO_URL__/tree/__BRANCH__/platform" target="_blank" rel="noreferrer">平台代码 <span aria-hidden="true">↗</span></a>
+          <a href="__REPO_URL__#api-接入" target="_blank" rel="noreferrer">API 接入 <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="terminal" role="img" aria-label="本机启动命令">
+        <div class="chrome"><i></i><i></i><i></i><span>zsh</span></div>
+        <pre><code><span class="c"># 首次准备</span>
+python3 scripts/setup-local.py
+
+<span class="c"># 启动（自动打开浏览器）</span>
+python3 scripts/start-local.py --open
+
+<span class="c"># 已有旧版资料时迁移</span>
+python3 scripts/migrate-local.py
+
+<span class="c"># 仅启动 API，查看 OpenAPI</span>
+<span class="p">$</span> python3 scripts/start-local.py --backend-only
+<span class="c">→ http://127.0.0.1:8001/docs</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="note">
+        <h2>关于这个页面</h2>
+        <p>这里展示的是项目界面与能力说明，截图使用演示数据。完整系统需要在本机运行 FastAPI 后端与数据库，GitHub Pages 无法执行后端代码，也不会保存任何资料。项目基于 <a href="https://github.com/chusimin/zhishu-rag-platform" target="_blank" rel="noreferrer">chusimin/zhishu-rag-platform</a> 的功能基线做本地增强实现。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="brand small">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h9M5 17h6"/></svg></span>
+      <span>知序 <em>Local RAG</em></span>
+    </div>
+    <p>本地优先的 AI 应用中台 · 文档、评测与发布一体化</p>
+    <div class="footer-links">
+      <a href="__REPO_URL__" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="__REPO_URL__#readme" target="_blank" rel="noreferrer">README</a>
+      <a href="__REPO_URL__/issues" target="_blank" rel="noreferrer">Issues</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
