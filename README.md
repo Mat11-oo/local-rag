@@ -4,7 +4,10 @@
 
 React · TypeScript · FastAPI · LangChain
 
-**在线体验**：[项目展示](https://mat11-oo.github.io/local-rag/) · [交互 Demo](https://mat11-oo.github.io/local-rag/demo/)
+**在线体验**
+
+- 项目展示：https://mat11-oo.github.io/local-rag/
+- 交互 Demo：https://mat11-oo.github.io/local-rag/demo/
 
 [快速开始](#快速开始) · [它能做什么](#它能做什么) · [工作原理](#工作原理) · [API 接入](#api-接入) · [部署与权限](#部署与权限)
 
