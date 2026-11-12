@@ -4,7 +4,7 @@
 
 React · TypeScript · FastAPI · LangChain
 
-**在线体验**：[项目展示](https://mat11-oo.github.io/local-rag/) · [交互 Demo](https://mat11-oo.github.io/local-rag/demo/?view=prototype-1)
+**在线体验**：[项目展示](https://mat11-oo.github.io/local-rag/) · [交互 Demo](https://mat11-oo.github.io/local-rag/demo/)
 
 [快速开始](#快速开始) · [它能做什么](#它能做什么) · [工作原理](#工作原理) · [API 接入](#api-接入) · [部署与权限](#部署与权限)
 
@@ -18,6 +18,8 @@ React · TypeScript · FastAPI · LangChain
 | 应用交付 | 配置问答应用或 Agent，通过评测门禁发布版本，并从运行记录回流评测案例 |
 
 ## 快速开始
+
+> 不想安装？先打开 [交互 Demo](https://mat11-oo.github.io/local-rag/demo/) 体验界面；数据为示例，不连接后端。
 
 需要 Python 3.11–3.13、Node.js 22.12+ 和 pnpm。在仓库根目录执行：
 
