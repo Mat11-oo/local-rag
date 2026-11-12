@@ -23,6 +23,7 @@
       <span>知序 <em>Local RAG</em></span>
     </a>
     <nav class="nav-links" aria-label="页面导航">
+      <a href="demo/?view=prototype-1">Demo</a>
       <a href="#features">功能</a>
       <a href="#screens">界面</a>
       <a href="#architecture">架构</a>
@@ -45,7 +46,7 @@
         <h1>把企业文档，变成<br /><span class="grad">敢上线</span>的 AI 能力</h1>
         <p class="lede">知序 Local RAG 是一个 AI 应用中台：导入资料、切块与检索、编排应用、评测把关、发布版本、追踪每一次回答。默认在本机运行，云端处理由你逐项开启。</p>
         <div class="cta">
-          <a class="btn primary" href="#start">了解如何运行 <span aria-hidden="true">→</span></a>
+          <a class="btn primary" href="demo/?view=prototype-1">打开交互 Demo <span aria-hidden="true">→</span></a>
           <a class="btn" href="__REPO_URL__" target="_blank" rel="noreferrer">查看源码</a>
         </div>
         <ul class="badges" aria-label="技术栈">
@@ -139,6 +140,27 @@
     </div>
   </section>
 
+
+  <section id="demo" class="section demo-section">
+    <div class="wrap demo-grid">
+      <div>
+        <p class="kicker">LIVE DEMO</p>
+        <h2>不用安装，直接点开</h2>
+        <p class="section-lede">这是一个可点击的交互原型：知识库、对话、看板与模型页面都能操作。页面数据为固定示例，不连接后端、不调用模型，也不会保存任何内容。</p>
+        <div class="cta">
+          <a class="btn primary" href="demo/?view=prototype-1">打开交互 Demo <span aria-hidden="true">→</span></a>
+          <a class="btn" href="#start">本机运行完整版</a>
+        </div>
+        <ul class="demo-tags">
+          <li>知识库浏览</li><li>对话体验</li><li>运营看板</li><li>模型配置</li><li>角色切换</li>
+        </ul>
+      </div>
+      <figure class="frame demo-frame">
+        <div class="chrome"><i></i><i></i><i></i><span>交互原型 · 示例数据</span></div>
+        <img src="assets/demo.png" width="1440" height="1000" alt="交互 Demo 的运营看板页面，含示例指标与图表" />
+      </figure>
+    </div>
+  </section>
   <section id="architecture" class="section">
     <div class="wrap">
       <p class="kicker">ARCHITECTURE</p>
@@ -226,7 +248,7 @@ python3 scripts/migrate-local.py
     <div class="wrap">
       <div class="note">
         <h2>关于这个页面</h2>
-        <p>这里展示的是项目界面与能力说明，截图使用演示数据。完整系统需要在本机运行 FastAPI 后端与数据库，GitHub Pages 无法执行后端代码，也不会保存任何资料。项目基于 <a href="https://github.com/chusimin/zhishu-rag-platform" target="_blank" rel="noreferrer">chusimin/zhishu-rag-platform</a> 的功能基线做本地增强实现。</p>
+        <p>这里展示的是项目界面与能力说明，截图使用演示数据。完整系统需要在本机运行 FastAPI 后端与数据库，GitHub Pages 无法执行后端代码，也不会保存任何资料。项目基于 chusimin/zhishu-rag-platform 的功能基线做本地增强实现。</p>
       </div>
     </div>
   </section>
@@ -240,6 +262,7 @@ python3 scripts/migrate-local.py
     </div>
     <p>本地优先的 AI 应用中台 · 文档、评测与发布一体化</p>
     <div class="footer-links">
+      <a href="demo/?view=prototype-1">Demo</a>
       <a href="__REPO_URL__" target="_blank" rel="noreferrer">GitHub</a>
       <a href="__REPO_URL__#readme" target="_blank" rel="noreferrer">README</a>
       <a href="__REPO_URL__/issues" target="_blank" rel="noreferrer">Issues</a>

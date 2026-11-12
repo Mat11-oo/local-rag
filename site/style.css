@@ -194,6 +194,24 @@ code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-si
 .flow strong { display: block; font-size: 1rem; margin-bottom: .2rem; }
 .flow p { color: var(--muted); font-size: .86rem; }
 
+/* ---------- live demo ---------- */
+.demo-section {
+  background:
+    radial-gradient(50% 60% at 12% 20%, rgba(122, 92, 255, .10), transparent 70%),
+    linear-gradient(180deg, #fbfaff, #f6f4ff);
+  border-block: 1px solid var(--line);
+}
+.demo-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: clamp(1.6rem, 4vw, 3.4rem); align-items: center; }
+.demo-grid .section-lede { margin-top: .9rem; }
+.demo-frame { margin: 0; }
+.demo-frame img { width: 100%; }
+.demo-tags { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; padding: 0; margin: 1.5rem 0 0; }
+.demo-tags li {
+  font-size: .78rem; color: var(--brand-ink); font-weight: 550;
+  background: #fff; border: 1px solid rgba(90, 75, 223, .18);
+  padding: .26rem .62rem; border-radius: 999px;
+}
+
 /* ---------- quick start ---------- */
 .start-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
 .hint { margin-top: 1.2rem; font-size: .86rem; color: #7a6a2a; background: #fffaf0; border: 1px solid #f0e3c4; padding: .7rem .9rem; border-radius: 9px; }
@@ -236,7 +254,7 @@ code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-si
   .grid { grid-template-columns: 1fr 1fr; }
   .layer { flex-direction: column; gap: .7rem; }
   .layer .chips { margin-top: 0; }
-  .start-grid { grid-template-columns: 1fr; }
+  .start-grid, .demo-grid { grid-template-columns: 1fr; }
   .flow { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 680px) {
