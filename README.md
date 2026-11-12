@@ -1,6 +1,7 @@
 # Local RAG
 
 面向 AI Work 的企业知识中台。把制度、操作手册和常见问题整理成可检索的知识库，供内部助手和业务流程复用。
+https://mat11-oo.github.io/local-rag/
 
 React · TypeScript · FastAPI · LangChain
 
